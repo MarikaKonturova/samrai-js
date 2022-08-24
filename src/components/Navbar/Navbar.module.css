@@ -1,0 +1,16 @@
+.nav {
+    grid-area: n;
+    background-color: burlywood;
+  
+  }
+  .dialogs_item{
+display: block;
+    color: white;
+  }
+  .item.active{
+    color: gold
+  }
+
+  a:active, a:focus	{
+    color: gold
+}
