@@ -1,8 +1,8 @@
 import React from "react";
 import s from "./Dialogs.module.css";
 import { Link } from "react-router-dom";
-import { updateNewMessageBodyActionCreator } from "../../redux/store";
-import { sendNewMessageActionCreator } from "./../../redux/store";
+import { sendNewMessageActionCreator, updateNewMessageBodyActionCreator } from './../../redux/dialogs-reducer';
+
 
 const DialogItem = ({ name, id }) => (
   <Link to={id} className={s.dialogs_item}>

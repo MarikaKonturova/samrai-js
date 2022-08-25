@@ -1,12 +1,10 @@
 import {
   profileReducer,
-  UPDATE_NEW_POST_TEXT,
-  ADD_POST,
+
 } from "./profile-reducer";
 import {
   dialogsReducer,
-  UPDATE_NEW_MESSAGE_BODY,
-  SEND_NEW_MESSAGE,
+
 } from "./dialogs-reducer";
 export let store = {
   _state: {
@@ -51,27 +49,6 @@ export let store = {
   },
 };
 
-export const addPostActionCreator = () => {
-  return {
-    type: ADD_POST,
-  };
-};
-export const updateNewPostTextActionCreator = (newText) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText,
-  };
-};
-export const updateNewMessageBodyActionCreator = (newMessageBody) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_BODY,
-    newMessageBody,
-  };
-};
-export const sendNewMessageActionCreator = () => {
-  return {
-    type: SEND_NEW_MESSAGE,
-  };
-};
+
 
 window.store = store;

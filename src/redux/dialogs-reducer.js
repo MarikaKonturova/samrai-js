@@ -17,3 +17,14 @@ export const dialogsReducer = (state, action) => {
       return state;
   }
 };
+export const updateNewMessageBodyActionCreator = (newMessageBody) => {
+    return {
+      type: UPDATE_NEW_MESSAGE_BODY,
+      newMessageBody,
+    };
+  };
+  export const sendNewMessageActionCreator = () => {
+    return {
+      type: SEND_NEW_MESSAGE,
+    };
+  };
