@@ -2,25 +2,31 @@ import React from "react";
 import { MyPost } from "./MyPost/MyPost";
 
 export const MyPosts = () => {
-  let myPostsData = [
-    {id: '1', message: 'Hi, how are you', likes: 10},
-    {id: '1', message: 'Hi, Hi,you', likes: 10},
-    {id: '1', message: 'Hi, me', likes: 10},
-  ]
+  const posts = [
+    { id: "1", message: "Hi, how are you", likes: 10 },
+    { id: "1", message: "Hi, Hi,you", likes: 10 },
+    { id: "1", message: "Hi, me", likes: 10 },
+  ];
+  let newPostElement = React.createRef();
+  const addPost = () => {
+    let text = newPostElement.current.value;
+    alert(text)
+  };
   return (
     <>
       <div>
         my posts
         <div>
-          <textarea name="" id=""></textarea>
+          <textarea name="" id="" ref={newPostElement}></textarea>
           <div>
-            <button>Add post</button>
+            <button onClick={addPost}> Add post</button>
           </div>
         </div>
       </div>
       <div>
-      {myPostsData.map(post=> <MyPost message={post.message} key={ post.id} likes={post.likes}/>)}
-    
+        {posts.map((post) => (
+          <MyPost message={post.message} key={post.id} likes={post.likes} />
+        ))}
       </div>
     </>
   );
