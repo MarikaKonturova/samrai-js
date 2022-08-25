@@ -7,7 +7,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { Profile } from "./components/Profile/Profile";
 
 function App(props: any) {
-  
+  debugger
   return (
     <BrowserRouter>
     <div className="app-wrapper">
@@ -16,7 +16,7 @@ function App(props: any) {
       <div className="app-wrapper-content">
         <Routes>
           <Route path="/profile" element={<Profile posts={props.state.profilePage.posts} newPostText={props.state.profilePage.newPostText} dispatch={props.dispatch}/>}/>
-          <Route path="/dialogs" element={<Dialogs  dialogs={props.state.profilePage.dialogs} messages={props.state.messagesPage.messages} newMessageBody={props.state.messagesPage.newMessageBody}  dispatch={props.dispatch} />} />
+          <Route path="/dialogs" element={<Dialogs  dialogs={props.state.profilePage.dialogs} messages={props.state.dialogsPage.messages} newMessageBody={props.state.dialogsPage.newMessageBody}  dispatch={props.dispatch} />} />
         </Routes>
       </div>
       
