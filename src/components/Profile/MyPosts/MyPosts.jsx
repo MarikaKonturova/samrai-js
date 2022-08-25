@@ -7,6 +7,7 @@ export const MyPosts = ({ posts, addPost, newPostText, updateNewPostText }) => {
     addPost();
   };
   const onPostChange = () => {
+
     let text = newPostElement.current.value;
     updateNewPostText(text)
 

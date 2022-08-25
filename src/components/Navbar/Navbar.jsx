@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import s from './Navbar.module.css'
-import { Dialogs } from './../Dialogs/Dialogs';
 export const Navbar = () => {
   return (
     <nav className={s.nav}>
