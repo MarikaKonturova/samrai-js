@@ -1,5 +1,4 @@
-import { rerenderEntireTree } from "./../index";
-
+let rerenderEntireTree = () => {};
 export const state = {
   profilePage: {
     posts: [
@@ -7,7 +6,7 @@ export const state = {
       { id: "1", message: "Hi, Hi,you", likes: 10 },
       { id: "1", message: "Hi, me", likes: 10 },
     ],
-    newPostText: '',
+    newPostText: "",
     dialogs: [
       { id: "1", name: "Lena" },
       { id: "2", name: "Pasha" },
@@ -27,12 +26,19 @@ export const state = {
   },
 };
 export let addPost = () => {
-  let newPost = { id: 5, message: state.profilePage.newPostText, likesCount: 0 };
+  let newPost = {
+    id: 5,
+    message: state.profilePage.newPostText,
+    likesCount: 0,
+  };
   state.profilePage.posts.push(newPost);
-  state.profilePage.newPostText = ''
-  rerenderEntireTree(state);
+  state.profilePage.newPostText = "";
+  rerenderEntireTree();
 };
-export let updateNewPostText = (newText)=>{
-  state.profilePage.newPostText = newText
-  rerenderEntireTree(state)
-}
+export let updateNewPostText = (newText) => {
+  state.profilePage.newPostText = newText;
+  rerenderEntireTree();
+};
+export const subscribe = (observer) => {
+  rerenderEntireTree = observer;
+};

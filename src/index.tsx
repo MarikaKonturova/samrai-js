@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { addPost, state, updateNewPostText } from "./redux/state";
+import { addPost, state, subscribe, updateNewPostText } from "./redux/state";
 
-export let rerenderEntireTree = (state: any ) => {
+export let rerenderEntireTree = ( ) => {
   root.render(
     <React.StrictMode>
       <App state={state} addPost={addPost} updateNewPostText={updateNewPostText} />
@@ -15,4 +15,6 @@ export let rerenderEntireTree = (state: any ) => {
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
-rerenderEntireTree(state);
+rerenderEntireTree();
+//отдаём renrenderEntireTree в state.js
+subscribe(rerenderEntireTree)
