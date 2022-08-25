@@ -1,15 +1,17 @@
 import React from "react";
 import { MyPost } from "./MyPost/MyPost";
 
-export const MyPosts = ({ posts, addPost, newPostText, updateNewPostText }) => {
+export const MyPosts = (props) => {
   let newPostElement = React.createRef();
   const addNewPost = () => {
-    addPost();
+   props.dispatch({type: 'ADD-POST' })
   };
   const onPostChange = () => {
 
     let text = newPostElement.current.value;
-    updateNewPostText(text)
+   props.dispatch({type: 'UPDATE-NEW-POST-TEXT' , newText: text })
+
+
 
   };
   return (
@@ -21,7 +23,7 @@ export const MyPosts = ({ posts, addPost, newPostText, updateNewPostText }) => {
             name=""
             id=""
             ref={newPostElement}
-            value={newPostText}
+            value={props.newPostText}
             onChange={onPostChange}
           ></textarea>
           <div>
@@ -30,7 +32,7 @@ export const MyPosts = ({ posts, addPost, newPostText, updateNewPostText }) => {
         </div>
       </div>
       <div>
-        {posts.map((post) => (
+        {props.posts.map((post) => (
           <MyPost message={post.message} key={post.id} likes={post.likes} />
         ))}
       </div>
