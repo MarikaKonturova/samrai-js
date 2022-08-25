@@ -10,17 +10,17 @@ const DialogItem = ({ name, id }) => (
 
 const Message = ({ message }) => <div className={s.message}>{message}</div>;
 
-export const Dialogs = () => {
+export const Dialogs = ({dialogs, messages}) => {
  
   return (
     <div className={s.dialogs}>
       <div className={s.dialogs_items}>
-        {dialogsData.map((dialog) => (
+        {dialogs.map((dialog) => (
           <DialogItem name={dialog.name} id={dialog.id} key={dialog.id}/>
         ))}
       </div>
       <div className={s.messages}>
-        {messagesData.map((message) => (
+        {messages.map((message) => (
           <Message message={message.message} key={message.id} />
         ))}
       </div>
