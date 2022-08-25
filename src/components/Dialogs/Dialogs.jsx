@@ -1,8 +1,6 @@
 import React from "react";
 import s from "./Dialogs.module.css";
 import { Link } from "react-router-dom";
-import { sendNewMessageActionCreator, updateNewMessageBodyActionCreator } from './../../redux/dialogs-reducer';
-
 
 const DialogItem = ({ name, id }) => (
   <Link to={id} className={s.dialogs_item}>
@@ -13,12 +11,9 @@ const DialogItem = ({ name, id }) => (
 const Message = ({ message }) => <div className={s.message}>{message}</div>;
 
 export const Dialogs = (props) => {
-  const onSendMessageClick = () => {
-    props.dispatch(sendNewMessageActionCreator());
-  };
-  const onSendMessageChange = (e) => {
+  const onSendMessageChangeHandler = (e) => {
     let body = e.target.value;
-    props.dispatch(updateNewMessageBodyActionCreator(body));
+    props.onSendMessageChange(body);
   };
   return (
     <div className={s.dialogs}>
@@ -38,13 +33,13 @@ export const Dialogs = (props) => {
               id=""
               cols="30"
               rows="10"
-              onChange={onSendMessageChange}
+              onChange={onSendMessageChangeHandler}
               value={props.newMessageBody}
               placeholder="Enter your message"
             ></textarea>
           </div>
           <div>
-            <button onClick={onSendMessageClick}>Send</button>
+            <button onClick={props.onSendMessageClick}>Send</button>
           </div>
         </div>
       </div>

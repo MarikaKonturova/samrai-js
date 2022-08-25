@@ -10,6 +10,13 @@ let initialState = {
     { id: "4", message: "Hi" },
     { id: "5", message: "LoliPop" },
   ],
+  dialogs: [
+    { id: "1", name: "Lena" },
+    { id: "2", name: "Pasha" },
+    { id: "3", name: "Misha" },
+    { id: "4", name: "Kolya" },
+    { id: "5", name: "Dima" },
+  ],
 };
 
 export const dialogsReducer = (state = initialState, action) => {
