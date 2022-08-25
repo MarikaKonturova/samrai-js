@@ -1,7 +1,13 @@
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
-const SEND_NEW_MESSAGE = "SEND-NEW-MESSAGE";
+import {
+  profileReducer,
+  UPDATE_NEW_POST_TEXT,
+  ADD_POST,
+} from "./profile-reducer";
+import {
+  dialogsReducer,
+  UPDATE_NEW_MESSAGE_BODY,
+  SEND_NEW_MESSAGE,
+} from "./dialogs-reducer";
 export let store = {
   _state: {
     profilePage: {
@@ -39,29 +45,9 @@ export let store = {
     this._rerenderEntireTree = observer;
   },
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      let newPost = {
-        id: 5,
-        message: this._state.profilePage.newPostText,
-        likesCount: 0,
-      };
-      this._state.profilePage.posts.push(newPost);
-      this._state.profilePage.newPostText = "";
-      this._rerenderEntireTree(this._state);
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-      this._state.profilePage.newPostText = action.newText;
-      this._rerenderEntireTree(this._state);
-    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-      this._state.messagesPage.newMessageBody = action.newMessageBody;
-      this._rerenderEntireTree(this._state);
-    } else if (action.type === SEND_NEW_MESSAGE) {
-      console.log(this._state.messagesPage.newMessageBody);
-      this._state.messagesPage.messages.push({
-        id: "6",
-        message: this._state.messagesPage.newMessageBody,
-      });
-      this._rerenderEntireTree(this._state);
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.messagesPage = dialogsReducer(this._state.messagesPage, action);
+    this._rerenderEntireTree(this._state);
   },
 };
 
