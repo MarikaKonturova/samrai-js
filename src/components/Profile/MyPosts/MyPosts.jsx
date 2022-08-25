@@ -6,15 +6,18 @@ export const MyPosts = (props) => {
   let newPostElement = React.createRef();
   const addNewPost = () => {
     props.addNewPost()
+    props.onPostChange('')
   };
   const onPostChange = () => {
     let text = newPostElement.current.value;
     props.onPostChange(text)
   };
+
+
   return (
     <>
       <div>
-        my posts
+        my posts 
         <div>
           <textarea
             name=""
@@ -23,14 +26,14 @@ export const MyPosts = (props) => {
             value={props.newPostText}
             onChange={onPostChange}
           ></textarea>
-          <div>
+          <div> 
             <button onClick={addNewPost}> Add post</button>
           </div>
         </div>
       </div>
       <div>
-        {props.posts.map((post) => (
-          <MyPost message={post.message} key={post.id} likes={post.likes} />
+        {props.posts.map((post) => (        
+          <MyPost message={post.message} key={`post${post.id}`} likes={post.likes} />
         ))}
       </div>
     </>

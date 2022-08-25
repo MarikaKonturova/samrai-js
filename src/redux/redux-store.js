@@ -8,5 +8,6 @@ let reducer = combineReducers({
 })
 
 let store = legacy_createStore(reducer);
+window.store = store;
 
 export default store;
