@@ -1,5 +1,7 @@
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
+const SEND_NEW_MESSAGE = "SEND-NEW-MESSAGE";
 export let store = {
   _state: {
     profilePage: {
@@ -18,7 +20,8 @@ export let store = {
       ],
     },
     messagesPage: {
-      messagesData: [
+      newMessageBody: "",
+      messages: [
         { id: "1", message: "Good morning" },
         { id: "2", message: "Durling" },
         { id: "3", message: "How are you" },
@@ -48,6 +51,16 @@ export let store = {
     } else if (action.type === UPDATE_NEW_POST_TEXT) {
       this._state.profilePage.newPostText = action.newText;
       this._rerenderEntireTree(this._state);
+    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+      this._state.messagesPage.newMessageBody = action.newMessageBody;
+      this._rerenderEntireTree(this._state);
+    } else if (action.type === SEND_NEW_MESSAGE) {
+      console.log(this._state.messagesPage.newMessageBody);
+      this._state.messagesPage.messages.push({
+        id: "6",
+        message: this._state.messagesPage.newMessageBody,
+      });
+      this._rerenderEntireTree(this._state);
     }
   },
 };
@@ -63,4 +76,16 @@ export const updateNewPostTextActionCreator = (newText) => {
     newText,
   };
 };
+export const updateNewMessageBodyActionCreator = (newMessageBody) => {
+  return {
+    type: UPDATE_NEW_MESSAGE_BODY,
+    newMessageBody,
+  };
+};
+export const sendNewMessageActionCreator = () => {
+  return {
+    type: SEND_NEW_MESSAGE,
+  };
+};
+
 window.store = store;
