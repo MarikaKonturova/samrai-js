@@ -37,9 +37,14 @@ export const usersReducer = (state = initialState, action) => {
       return state;
   }
 };
-
+/* 
 export const followAC = (userId) => ({ type: FOLLOW, userId: userId });
 export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId: userId });
 export const setUsersAC = (users) => ({ type: SET_USERS, users });
 export const setCurrentPageAC = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
-export const setFetchingAC = (fetching) => ({ type: SET_FETCHING, fetching });
+export const setFetchingAC = (fetching) => ({ type: SET_FETCHING, fetching }); */
+export const follow = (userId) => ({ type: FOLLOW, userId: userId });
+export const unfollow = (userId) => ({ type: UNFOLLOW, userId: userId });
+export const setUsers = (users) => ({ type: SET_USERS, users });
+export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
+export const setFetching = (fetching) => ({ type: SET_FETCHING, fetching });
