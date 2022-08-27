@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { followAC, setCurrentPageAC, unfollowAC } from "../../redux/users-reducer";
+import { followAC, setCurrentPageAC, unfollowAC, setFetchingAC } from "../../redux/users-reducer";
 import { setUsersAC } from "./../../redux/users-reducer";
 import axios from "axios";
 import { Users } from './Users';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
+    this.props.setFetching(true)
+
     console.log(this.props)
     axios
       .get(
@@ -14,10 +16,14 @@ class UsersContainer extends React.Component {
       )
       .then((response) => {
         this.props.setUsers(response.data.items);
+        this.props.setFetching(false)
+
       });
   }
 
   onPageChanged = async(p) => {
+    this.props.setFetching(true)
+
     console.log(p)
     this.props.setCurrentPage(p);
     axios
@@ -26,6 +32,8 @@ class UsersContainer extends React.Component {
     )
     .then((response) => {
       this.props.setUsers(response.data.items);
+      this.props.setFetching(false)
+
     });
   };
 
@@ -39,6 +47,7 @@ class UsersContainer extends React.Component {
        unfollow={this.props.unfollow}
        follow={this.props.follow}
        users={this.props.users}
+       isFetching={this.props.isFetching}
        />
     );
   } 
@@ -49,7 +58,8 @@ const mptp = (state) => {
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage
+    currentPage: state.usersPage.currentPage,
+    isFetching: state.usersPage.isFetching
   };
 };
 const mdtp = (dispatch) => {
@@ -65,6 +75,9 @@ const mdtp = (dispatch) => {
     },
      setCurrentPage: (currentPage) => {
       dispatch(setCurrentPageAC(currentPage));
+    },
+      setFetching: (fetching) => {
+      dispatch(setFetchingAC(fetching));
     },
   };
 };
