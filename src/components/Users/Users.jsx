@@ -1,6 +1,7 @@
 import React from "react";
 import { Preloader } from "../common/Preloader/Preloader";
 import s from "./Users.module.css";
+import { Link } from 'react-router-dom';
 
 export const Users = (props) => {
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -13,9 +14,9 @@ export const Users = (props) => {
     return <Preloader />;
   }
   return (
-    <div>
+    <div className={s.pages}>
       {pages.map((p) => (
-        <span
+ <span
           onClick={(e) => {
             props.onPageChanged(p);
           }}
@@ -23,9 +24,12 @@ export const Users = (props) => {
         >
           {p}
         </span>
+       
       ))}
       {props.users.map((u) => (
-        <div key={`${u.id}`}>
+        <Link to={`/profile/${u.id}`}>
+
+        <div key={`${u.id}`} className={s.user_container}>
           <span>
             <img
               src={u.photos.small !== null ? u.photos.small : ""}
@@ -51,6 +55,8 @@ export const Users = (props) => {
             </span>
           </span>
         </div>
+        </Link>
+
       ))}
     </div>
   );

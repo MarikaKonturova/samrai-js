@@ -8,9 +8,19 @@ display: block;
     color: white;
   }
   .item.active{
-    color: gold
+    color: rgb(74, 74, 74)
   }
 
-  a:active, a:focus	{
-    color: gold
+
+a {
+  color: black;
+  text-decoration: none;
+  transition: 0.1s;
+}
+a:hover {
+  color: gold
+
+}
+a:active	{
+  color: rgb(255, 255, 255)
 }
