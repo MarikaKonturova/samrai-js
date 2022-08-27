@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Users } from "./Users";
+import  Users  from "./Users";
 import { followAC, unfollowAC } from "../../redux/users-reducer";
 import { setUsersAC } from "./../../redux/users-reducer";
 const mptp = (state) => {
