@@ -1,8 +1,49 @@
 import React from "react";
 import { connect } from "react-redux";
-import  Users  from "./Users";
 import { followAC, setCurrentPageAC, unfollowAC } from "../../redux/users-reducer";
 import { setUsersAC } from "./../../redux/users-reducer";
+import axios from "axios";
+import { Users } from './Users';
+
+class UsersContainer extends React.Component {
+  componentDidMount() {
+    console.log(this.props)
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
+      )
+      .then((response) => {
+        this.props.setUsers(response.data.items);
+      });
+  }
+
+  onPageChanged = async(p) => {
+    console.log(p)
+    this.props.setCurrentPage(p);
+    axios
+    .get(
+      `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`
+    )
+    .then((response) => {
+      this.props.setUsers(response.data.items);
+    });
+  };
+
+  render() {
+ 
+
+    return (
+      <Users totalUsersCount={this.props.totalUsersCount}
+       pageSize={this.props.pageSize} 
+       onPageChanged={this.onPageChanged}
+       unfollow={this.props.unfollow}
+       follow={this.props.follow}
+       users={this.props.users}
+       />
+    );
+  } 
+}
+
 const mptp = (state) => {
   return {
     users: state.usersPage.users,
@@ -28,4 +69,4 @@ const mdtp = (dispatch) => {
   };
 };
 
-export const UsersContainer = connect(mptp, mdtp)(Users);
+export default connect(mptp, mdtp)(UsersContainer);
