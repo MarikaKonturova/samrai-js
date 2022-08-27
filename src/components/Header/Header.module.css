@@ -1,9 +1,19 @@
 .header {
-    grid-area: h;
-    background-color: green;
-  
-  }
-  .header img{
-    width: 20px;
-  }
-  
+  grid-area: h;
+  background-color: green;
+}
+.header img {
+  width: 20px;
+}
+
+.loginBlock {
+  float: right;
+}
+.item {
+  color: #ffffff;
+  text-decoration: none;
+}
+.active {
+  color: #6b8d5e;
+  text-decoration: none;
+}
