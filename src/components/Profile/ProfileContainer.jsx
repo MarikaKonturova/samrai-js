@@ -4,16 +4,18 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { setProfile } from "./../../redux/profile-reducer";
 import { setFetching } from "../../redux/users-reducer";
+import { useParams } from "react-router-dom";
+
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    console.log("mounted");
+   
     this.props.setFetching(true);
     console.log(this.props);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/profile/${
-          this.props.user ?? 2
+          this.props.params.userId ?? 2
         }`
       )
       .then((response) => {
@@ -26,6 +28,14 @@ class ProfileContainer extends React.Component {
   }
 }
 const mstp = (state) => ({
-  profile: state.profilePage.profile
-})
-export default connect(mstp, { setProfile, setFetching })(ProfileContainer);
+  profile: state.profilePage.profile,
+});
+//propsType Params
+
+const WithUrlDataContainerComponent = (props) => {
+  return <ProfileContainer {...props} params={useParams()} />;
+};
+
+export default connect(mstp, { setProfile, setFetching })(
+  WithUrlDataContainerComponent
+);
