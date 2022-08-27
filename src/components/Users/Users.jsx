@@ -1,14 +1,23 @@
 import { React } from "react";
+import axios from "axios";
 import s from "./Users.module.css";
-
 export const Users = (props) => {
+
+  if (!props.users.length) {
+    axios
+      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .then((response) => {
+        props.setUsers(response.data.items);
+      });
+  } 
+
   return (
     <div>
       {props.users.map((u) => (
         <div key={u.id}>
           <span>
             <img
-              src={''}
+              src={u.photos.small !== null ? u.photos.small : ""}
               className={s.userPhoto}
               alt={"avatar"}
             />
@@ -28,8 +37,8 @@ export const Users = (props) => {
               <div>{u.status}</div>
             </span>
             <span>
-              <div>{u.location.country}</div>
-              <div>{u.location.city}</div>
+              <div>{"u.location.country"}</div>
+              <div>{"u.location.city"}</div>
             </span>
           </span>
         </div>
