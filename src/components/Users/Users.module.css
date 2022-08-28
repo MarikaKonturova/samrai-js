@@ -1,5 +1,7 @@
 .selectedPage{
-    font-weight: 900;
+    font-weight: bold;
+    font-size: 18px;
+    color: gold
 }
 .user_container{
     display: flex;
