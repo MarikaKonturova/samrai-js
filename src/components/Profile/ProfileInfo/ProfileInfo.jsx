@@ -2,14 +2,14 @@ import React from "react";
 import { Preloader } from "./../../common/Preloader/Preloader";
 import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
 
-export const ProfileInfo = ({ profile }) => {
+export const ProfileInfo = ({ profile,status, updateStatus }) => {
   if (!profile) {
     return <Preloader />;
   }
   return (
     <div>
       <img src={profile.photos.large} alt="avatar" />
-      <ProfileStatus status={"Hello my friends"} />
+      <ProfileStatus status={status} updateStatus={updateStatus} />
 
       <h2>{profile.fullName}</h2>
       <p>

@@ -20,14 +20,23 @@ export const usersAPI = {
     follow(id: number) {
         return instance.post(`follow/${id}`)
     },
-    getProfile(id: number) {
-        return instance.get((`profile/` + id)
-        )
-    }
+  
 }
 
 export const authAPI = {
     me () {
         return instance.get(`auth/me`)
+    }
+}
+
+export const profileAPI = {
+    getProfile(id: number) {
+        return instance.get(`profile/` + id)
+    },
+    getState(id: number) {
+        return instance.get(`profile/status/` + id)
+    },
+    updateStatus(status: string) {
+        return instance.put(`profile/status/`, {status})
     }
 }
