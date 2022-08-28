@@ -10,6 +10,7 @@ const mptp = (state) => {
     dialogs: state.dialogsPage.dialogs,
     messages: state.dialogsPage.messages,
     newMessageBody: state.dialogsPage.newMessageBody,
+    isAuth: state.auth.isAuth
   };
 };
 const mdtp = (dispatch) => {

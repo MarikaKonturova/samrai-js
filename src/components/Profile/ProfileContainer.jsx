@@ -1,7 +1,7 @@
 import { Profile } from "./Profile";
 import React from "react";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Navigate,useParams } from "react-router-dom";
 import {getUserProfile} from '../../redux/profile-reducer'
 
 
@@ -13,11 +13,13 @@ class ProfileContainer extends React.Component {
         this.props.getUserProfile(userId)
   }
   render() {
+    if (!this.props.isAuth) return <Navigate to="/login"/>
     return <Profile {...this.props} />;
   }
 }
 const mstp = (state) => ({
   profile: state.profilePage.profile,
+  isAuth: state.auth.isAuth
 });
 //propsType Params
 

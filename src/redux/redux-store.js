@@ -3,11 +3,13 @@ import { profileReducer } from './profile-reducer';
 import { dialogsReducer } from './dialogs-reducer';
 import { usersReducer } from "./users-reducer";
 import thunkMiddleware from "redux-thunk"
+import { authReducer } from './auth-reducer';
 
 let reducer = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
-  usersPage: usersReducer
+  usersPage: usersReducer,
+  auth: authReducer
 })
 
 let store = legacy_createStore(reducer, applyMiddleware(thunkMiddleware));
