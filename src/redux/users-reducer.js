@@ -3,12 +3,14 @@ export const UNFOLLOW = "UNFOLLOW";
 export const SET_USERS = "SET_USERS";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SET_FETCHING = "SET_FETCHING";
+export const SET_PROGRESS_FETCHING = "SET_PROGRESS_FETCHING";
 let initialState = {
   users: [],
   pageSize: 3,
   totalUsersCount: 19,
   currentPage: 3,
-  isFetching: false
+  isFetching: false,
+  inFollowingProgress: [],
 };
 
 export const usersReducer = (state = initialState, action) => {
@@ -31,8 +33,15 @@ export const usersReducer = (state = initialState, action) => {
       return { ...state, users: action.users };
     case SET_CURRENT_PAGE:
       return { ...state, currentPage: action.currentPage };
-       case SET_FETCHING:
-      return { ...state, isFetching:action.fetching };
+    case SET_FETCHING:
+      return { ...state, isFetching: action.fetching };
+    case SET_PROGRESS_FETCHING:
+      return {
+        ...state,
+        inFollowingProgress: action.inFollowingProgress
+          ? [...state.inFollowingProgress, action.userId]
+          : state.inFollowingProgress.filter((id) => id !== action.userId),
+      };
     default:
       return state;
   }
@@ -46,5 +55,13 @@ export const setFetchingAC = (fetching) => ({ type: SET_FETCHING, fetching }); *
 export const follow = (userId) => ({ type: FOLLOW, userId: userId });
 export const unfollow = (userId) => ({ type: UNFOLLOW, userId: userId });
 export const setUsers = (users) => ({ type: SET_USERS, users });
-export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
+export const setCurrentPage = (currentPage) => ({
+  type: SET_CURRENT_PAGE,
+  currentPage,
+});
 export const setFetching = (fetching) => ({ type: SET_FETCHING, fetching });
+export const setFollowingFetching = (inFollowingProgress, userId) => ({
+  type: SET_PROGRESS_FETCHING,
+  inFollowingProgress,
+  userId,
+});

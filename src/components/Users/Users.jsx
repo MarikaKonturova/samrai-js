@@ -17,17 +17,16 @@ export const Users = (props) => {
   return (
     <div className={s.pages}>
       {pages.map((p) => (
-          <span
-            key={p}
-            onClick={(e) => {
-              props.onPageChanged(p);
-            }}
-            className={p === props.currentPage ? s.selectedPage : ""}
-          >
-            {p}
-          </span>
-        )
-      )}
+        <span
+          key={p}
+          onClick={(e) => {
+            props.onPageChanged(p);
+          }}
+          className={p === props.currentPage ? s.selectedPage : ""}
+        >
+          {p}
+        </span>
+      ))}
       {props.users.map((u) => (
         <div key={`${u.id}`} className={s.user_container}>
           <span>
@@ -40,27 +39,31 @@ export const Users = (props) => {
               {u.followed ? (
                 <button
                   onClick={() => {
+                    props.setFollowingFetching(true, u.id);
+
                     usersAPI.unfollow(u.id).then((data) => {
                       if (data.resultCode === 0) {
+                        props.setFollowingFetching(false, u.id);
                         props.unfollow(u.id);
                       }
                     });
                   }}
+                  disabled={props.inFollowingProgress.some(id => id === u.id)}
                 >
                   Unfollow
                 </button>
               ) : (
                 <button
                   onClick={() => {
-                    usersAPI
-                      .follow(u.id)
-                      .then((data) => {
-                        console.log(data)
-                        if (data.resultCode === 0) {
-                          props.follow(u.id);
-                        }
-                      });
+                    props.setFollowingFetching(true, u.id);
+                    usersAPI.follow(u.id).then((data) => {
+                      if (data.resultCode === 0) {
+                        props.setFollowingFetching(false, u.id);
+                        props.follow(u.id);
+                      }
+                    });
                   }}
+                  disabled={props.inFollowingProgress.some(id => id === u.id)}
                 >
                   Follow
                 </button>
