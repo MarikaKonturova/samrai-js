@@ -2,7 +2,6 @@ import React from "react";
 import { Preloader } from "../common/Preloader/Preloader";
 import s from "./Users.module.css";
 import { Link } from "react-router-dom";
-import { usersAPI } from "../../api/api";
 
 export const Users = (props) => {
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
