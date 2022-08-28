@@ -1,10 +1,11 @@
 import { Dialogs } from "./Dialogs";
 import { connect } from "react-redux";
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import {
   sendNewMessageActionCreator,
   updateNewMessageBodyActionCreator,
 } from "./../../redux/dialogs-reducer";
+import { compose } from "redux";
 const mptp = (state) => {
   return {
     dialogs: state.dialogsPage.dialogs,
@@ -23,7 +24,6 @@ const mdtp = (dispatch) => {
   };
 };
 
-const AuthRedirectComponent = withAuthRedirect(Dialogs)
-
-
-export const DialogsContainer = connect(mptp, mdtp)(AuthRedirectComponent);
+export const DialogsContainer = compose(
+  (connect(mptp, mdtp), withAuthRedirect)(Dialogs)
+);

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import {getUserProfile} from '../../redux/profile-reducer'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-
+import {compose} from 'redux'
 class ProfileContainer extends React.Component {
   componentDidMount() {
    //userId потому что URI parameters
@@ -21,11 +21,12 @@ const mstp = (state) => ({
   profile: state.profilePage.profile,
   isAuth: state.auth.isAuth
 });
-const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-//propsType Params
-const WithUrlDataContainerComponent = (props) => {
-  return <AuthRedirectComponent {...props} params={useParams()} />;
+
+const WithUrlDataContainerComponent = (Component) => {
+  function ComponentWithParams(props){
+    return <Component {...props} params={useParams()} />;
+  }
+  return ComponentWithParams
 };
-export default connect(mstp, { getUserProfile })(
-  WithUrlDataContainerComponent
-);
+
+export default compose(connect(mstp, { getUserProfile }), WithUrlDataContainerComponent, withAuthRedirect)(ProfileContainer)

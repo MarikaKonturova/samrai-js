@@ -8,6 +8,7 @@ import {
 } from "./../../redux/users-reducer";
 import { Users } from "./Users";
 import { withAuthRedirect } from './../../hoc/withAuthRedirect';
+import {compose} from 'redux'
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.getUsers(this.props.currentPage, this.props.pageSize);
@@ -33,9 +34,7 @@ const mptp = (state) => {
   };
 };
 
-export default withAuthRedirect(connect(mptp, {
-  follow,
-  unfollow,
-  setCurrentPage,
-  getUsers,
-})(UsersContainer));
+export default compose(connect(mptp,
+  {follow, unfollow, setCurrentPage, getUsers}),
+withAuthRedirect)(UsersContainer)
+
