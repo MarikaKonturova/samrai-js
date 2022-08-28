@@ -39,14 +39,7 @@ export const Users = (props) => {
               {u.followed ? (
                 <button
                   onClick={() => {
-                    props.setFollowingFetching(true, u.id);
-
-                    usersAPI.unfollow(u.id).then((data) => {
-                      if (data.resultCode === 0) {
-                        props.setFollowingFetching(false, u.id);
-                        props.unfollow(u.id);
-                      }
-                    });
+                    props.unfollow(u.id)
                   }}
                   disabled={props.inFollowingProgress.some(id => id === u.id)}
                 >
@@ -55,13 +48,7 @@ export const Users = (props) => {
               ) : (
                 <button
                   onClick={() => {
-                    props.setFollowingFetching(true, u.id);
-                    usersAPI.follow(u.id).then((data) => {
-                      if (data.resultCode === 0) {
-                        props.setFollowingFetching(false, u.id);
-                        props.follow(u.id);
-                      }
-                    });
+                    props.follow(u.id)
                   }}
                   disabled={props.inFollowingProgress.some(id => id === u.id)}
                 >
