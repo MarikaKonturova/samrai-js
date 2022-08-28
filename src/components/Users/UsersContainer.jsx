@@ -33,13 +33,7 @@ const mptp = (state) => {
   };
 };
 
-/* export default connect(mptp, {
-  follow: followAC,
-  unfollow: unfollowAC,
-  setUsers: setUsersAC,
-  setCurrentPage: setCurrentPageAC,
-  setFetching: setFetchingAC,
-})(UsersContainer); */
+
 export default connect(mptp, {
   follow,
   unfollow,
