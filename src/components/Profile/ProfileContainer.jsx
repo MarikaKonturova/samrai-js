@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import {getUserProfile} from '../../redux/profile-reducer'
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+
 import {compose} from 'redux'
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -29,4 +29,4 @@ const WithUrlDataContainerComponent = (Component) => {
   return ComponentWithParams
 };
 
-export default compose(connect(mstp, { getUserProfile }), WithUrlDataContainerComponent, withAuthRedirect)(ProfileContainer)
+export default compose(connect(mstp, { getUserProfile }), WithUrlDataContainerComponent)(ProfileContainer)
