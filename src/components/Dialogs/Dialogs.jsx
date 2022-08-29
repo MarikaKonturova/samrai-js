@@ -1,19 +1,39 @@
 import React from "react";
 import s from "./Dialogs.module.css";
 import { Link } from "react-router-dom";
-
+import { Field, reduxForm } from "redux-form";
 const DialogItem = ({ name, id }) => (
   <Link to={id} className={s.dialogs_item}>
     {name}
   </Link>
 );
 
+const AddMessageForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        <Field
+          placeholder={"New Message"}
+          component={"textarea"}
+          name={"newMessageBody"}
+        />
+      </div>
+      <div>
+        <button>Send message</button>
+      </div>
+    </form>
+  );
+};
+//нужно обязательно оборачивать в reduxForm store.getState().from
+const AddMessageFormRedux = reduxForm({ form: "dialogAddMessageForm" })(
+  AddMessageForm
+);
+
 const Message = ({ message }) => <div className={s.message}>{message}</div>;
 
 export const Dialogs = (props) => {
-  const onSendMessageChangeHandler = (e) => {
-    let body = e.target.value;
-    props.onSendMessageChange(body);
+  const addNewMessage = (values) => {
+    props.onSendMessageClick(values.newMessageBody);
   };
 
   return (
@@ -27,22 +47,7 @@ export const Dialogs = (props) => {
         {props.messages.map((message) => (
           <Message message={message.message} key={message.id} />
         ))}
-        <div>
-          <div>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              onChange={onSendMessageChangeHandler}
-              value={props.newMessageBody}
-              placeholder="Enter your message"
-            ></textarea>
-          </div>
-          <div>
-            <button onClick={props.onSendMessageClick}>Send</button>
-          </div>
-        </div>
+        <AddMessageFormRedux onSubmit={addNewMessage} />
       </div>
     </div>
   );
