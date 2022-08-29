@@ -36,9 +36,9 @@ export const Dialogs = (props) => {
   const addNewMessage = (values) => {
     props.onSendMessageClick(values.newMessageBody);
   };
-if(!props.auth){
-  return <Navigate to={'/login'}/>
-}
+  if (!props.auth) {
+    return <Navigate to={"/login"} />;
+  }
   return (
     <div className={s.dialogs}>
       <div className={s.dialogs_items}>

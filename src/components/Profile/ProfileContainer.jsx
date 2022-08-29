@@ -12,8 +12,12 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     //userId потому что URI parameters
     let { userId } = this.props.params;
-    this.props.getUserProfile(userId ?? 25677);
-    this.props.getStatus(userId ?? 25677);
+   
+    if (!userId) {
+      userId = this.props.authorizedUserId
+  }
+    this.props.getUserProfile(userId );
+    this.props.getStatus(userId );
   }
   render() {
     return <Profile {...this.props} />;
@@ -22,6 +26,7 @@ class ProfileContainer extends React.Component {
 const mstp = (state) => ({
   profile: state.profilePage.profile,
   isAuth: state.auth.isAuth,
+  authorizedUserId: state.auth.userId,
   status: state.profilePage.status,
 });
 
