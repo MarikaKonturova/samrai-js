@@ -35,6 +35,5 @@ const mptp = (state) => {
 };
 
 export default compose(connect(mptp,
-  {follow, unfollow, setCurrentPage, getUsers}),
-withAuthRedirect)(UsersContainer)
+  {follow, unfollow, setCurrentPage, getUsers}))(UsersContainer)
 

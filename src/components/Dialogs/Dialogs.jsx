@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Dialogs.module.css";
 import { Link } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
+import { Navigate } from "react-router-dom";
 const DialogItem = ({ name, id }) => (
   <Link to={id} className={s.dialogs_item}>
     {name}
@@ -35,7 +36,9 @@ export const Dialogs = (props) => {
   const addNewMessage = (values) => {
     props.onSendMessageClick(values.newMessageBody);
   };
-
+if(!props.auth){
+  return <Navigate to={'/login'}/>
+}
   return (
     <div className={s.dialogs}>
       <div className={s.dialogs_items}>
