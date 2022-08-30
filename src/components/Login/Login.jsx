@@ -1,42 +1,27 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
-import { Input } from "../common/FormControls/FormsControls";
+import { reduxForm } from "redux-form";
 import { required } from "./../../utils/validators/validators";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
-import {login} from '../../redux/auth-reducer'
+import { login } from "../../redux/auth-reducer";
 import s from './Login.module.css'
-const LoginForm = (props) => {
+import { createField, Input } from './../common/FormControls/FormsControls';
+const LoginForm = ({ handleSubmit, error }) => {
   return (
-    <form onSubmit={props.handleSubmit}>
-      <div>
-        <Field
-          placeholder={"Email"}
-          name={"email"}
-          component={Input}
-          validate={[required]}
-        />
-      </div>
-      <div>
-        <Field
-          placeholder={"Password"}
-          name={"password"}
-          component={Input}
-          validate={[required]}
-          type="password"
-        />
-      </div>
-      <div>
-        <Field
-          name={"rememberMe"}
-          component={Input}
-          type={"checkbox"}
-        />
-        remember me
-      </div>
-      {props.error && <div className={s.formSummaryError}>
-                {props.error}
-            </div>}
+    <form onSubmit={handleSubmit}>
+      {createField("Email", "email", [required], Input)}
+      {createField("Password", "password", [required], Input, {
+        type: "password",
+      })}
+      {createField(
+        null,
+        "rememberMe",
+        [],
+        Input,
+        { type: "checkbox" },
+        "remember me"
+      )}
+      {error && <div className={s.formSummaryError}>{error}</div>}
       <div>
         <button>Login</button>
       </div>
@@ -46,12 +31,11 @@ const LoginForm = (props) => {
 
 const LoginReduxForm = reduxForm({ form: "login" })(LoginForm);
 
-
-const Login = (props) => {
+const Login = ({ login, isAuth }) => {
   const onSubmit = (formData) => {
-    props.login(formData.email, formData.password, formData.rememberMe)
+    login(formData.email, formData.password, formData.rememberMe);
   };
-  if (props.isAuth) {
+  if (isAuth) {
     return <Navigate to="/profile" />;
   }
   return (
@@ -63,7 +47,7 @@ const Login = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth,
-  });
-  
+  isAuth: state.auth.isAuth,
+});
+
 export default connect(mapStateToProps, { login })(Login);

@@ -1,6 +1,5 @@
 import React from "react";
 import { Preloader } from "./../../common/Preloader/Preloader";
-import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
 import {ProfileStatusWithHooks} from './ProfileStatus/ProfileStatusWithHooks'
 export const ProfileInfo = ({ profile,status, updateStatus }) => {
   if (!profile) {
