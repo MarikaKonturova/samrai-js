@@ -1,7 +1,7 @@
 import React from "react";
 import { Preloader } from "./../../common/Preloader/Preloader";
 import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
-
+import {ProfileStatusWithHooks} from './ProfileStatus/ProfileStatusWithHooks'
 export const ProfileInfo = ({ profile,status, updateStatus }) => {
   if (!profile) {
     return <Preloader />;
@@ -9,8 +9,8 @@ export const ProfileInfo = ({ profile,status, updateStatus }) => {
   return (
     <div>
       <img src={profile.photos.large} alt="avatar" />
-      <ProfileStatus status={status} updateStatus={updateStatus} />
-
+      {/* <ProfileStatus status={status} updateStatus={updateStatus} /> */}
+      <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
       <h2>{profile.fullName}</h2>
       <p>
         <b>About me: </b>
