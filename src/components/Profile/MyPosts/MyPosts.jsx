@@ -49,7 +49,7 @@ console.log('rendered MY POSTS')
         <NewPost newPostText={props.newPostText} addPost={props.addPost} />
       </div>
       <div>
-        {props.posts.map((post) => (
+        {[...props.posts].reverse().map((post) => (
           <MyPost
             message={post.message}
             key={`post${post.id}`}
