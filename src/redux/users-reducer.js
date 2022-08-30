@@ -75,7 +75,7 @@ export const setFollowingFetching = (inFollowingProgress, userId) => ({
   userId,
 });
 
-export const getUsers = (currentPage, pageSize) => (dispatch) => {
+export const requestUsers = (currentPage, pageSize) => (dispatch) => {
   dispatch(setFetching(true));
   dispatch(setCurrentPage(currentPage))
   usersAPI.getUsers(currentPage, pageSize).then((data) => {
