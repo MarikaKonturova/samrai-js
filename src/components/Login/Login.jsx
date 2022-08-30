@@ -31,8 +31,7 @@ const LoginForm = (props) => {
           name={"rememberMe"}
           component={Input}
           type={"checkbox"}
-          validate={[required]}
-        />{" "}
+        />
         remember me
       </div>
       {props.error && <div className={s.formSummaryError}>
@@ -50,7 +49,7 @@ const LoginReduxForm = reduxForm({ form: "login" })(LoginForm);
 
 const Login = (props) => {
   const onSubmit = (formData) => {
-    //console.log(formData)
+    props.login(formData.email, formData.password, formData.rememberMe)
   };
   if (props.isAuth) {
     return <Navigate to="/profile" />;

@@ -36,7 +36,7 @@ export const Dialogs = (props) => {
   const addNewMessage = (values) => {
     props.onSendMessageClick(values.newMessageBody);
   };
-  if (!props.auth) {
+  if (!props.isAuth) {
     return <Navigate to={"/login"} />;
   }
   return (

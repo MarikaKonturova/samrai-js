@@ -2,6 +2,7 @@ import { Profile } from "./Profile";
 import React from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import {
   getStatus,
   getUserProfile,
@@ -10,16 +11,22 @@ import {
 import { compose } from "redux";
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    //userId потому что URI parameters
     let { userId } = this.props.params;
-   
     if (!userId) {
       userId = this.props.authorizedUserId
   }
-    this.props.getUserProfile(userId );
-    this.props.getStatus(userId );
+if(userId){
+  this.props.getUserProfile(userId);
+  this.props.getStatus(userId);
+}
+   
   }
+
   render() {
+    //другое условие, чтобы не вмешиваться в componentDidMount с history
+    if (!this.props.isAuth && !this.props.params.hasOwnProperty('userId')) {
+      return <Navigate to={"/login"} />;
+    }
     return <Profile {...this.props} />;
   }
 }
@@ -30,7 +37,7 @@ const mstp = (state) => ({
   status: state.profilePage.status,
 });
 
-const WithUrlDataContainerComponent = (Component) => {
+export const WithUrlDataContainerComponent = (Component) => {
   function ComponentWithParams(props) {
     return <Component {...props} params={useParams()} />;
   }

@@ -6,6 +6,7 @@ import { compose } from "redux";
 
 const mptp = (state) => {
   return {
+    isAuth: state.auth.isAuth,
     dialogs: state.dialogsPage.dialogs,
     messages: state.dialogsPage.messages,
     newMessageBody: state.dialogsPage.newMessageBody,
@@ -20,5 +21,5 @@ const mdtp = (dispatch) => {
 };
 
 export const DialogsContainer = compose(
-  ( withAuthRedirect, connect(mptp, mdtp))(Dialogs)
+  (withAuthRedirect,connect(mptp, mdtp))(Dialogs)
 );

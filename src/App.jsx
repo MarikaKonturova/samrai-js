@@ -1,15 +1,25 @@
 import React from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Navbar } from "./components/Navbar/Navbar";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import Login from "./components/Login/Login";
-import { HeaderContainer } from './components/Header/HeaderContainer';
-function App(props: any) {
-  return (
-    <BrowserRouter>
+import { HeaderContainer } from "./components/Header/HeaderContainer";
+import { connect } from "react-redux";
+import { initializeApp } from "./redux/app-reducer";
+import { Preloader } from "./components/common/Preloader/Preloader";
+class App extends React.Component {
+  componentDidMount() {
+    console.log(this.props);
+    this.props.initializeApp();
+  }
+  render() {
+    if (!this.props.initialized) {
+      return <Preloader />;
+    }
+    return (
       <div className="app-wrapper">
         <HeaderContainer />
         <Navbar />
@@ -22,12 +32,20 @@ function App(props: any) {
             </Route>
             <Route path="/dialogs" element={<DialogsContainer />} />
             <Route path="/users" element={<UsersContainer />} />
-            <Route path="/login" element={<Login/>}/>
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>
-    </BrowserRouter>
-  );
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  initialized: state.app.initialized,
+});
+const mapDispatchToProps = (dispatch) => ({
+  initializeApp: () => {
+    dispatch(initializeApp());
+  },
+});
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
