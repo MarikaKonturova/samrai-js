@@ -1,9 +1,12 @@
 import React from "react";
 import { MyPost } from "./MyPost/MyPost";
 import { reduxForm, Field } from "redux-form";
-import { Textarea } from '../../common/FormControls/FormsControls';
-import { required, maxLengthCreator } from '../../../utils/validators/validators';
-const maxLength30 = maxLengthCreator(30)
+import { Textarea } from "../../common/FormControls/FormsControls";
+import {
+  required,
+  maxLengthCreator,
+} from "../../../utils/validators/validators";
+const maxLength30 = maxLengthCreator(30);
 const AddPostForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
@@ -38,7 +41,8 @@ const NewPost = (props) => {
   );
 };
 
-export const MyPosts = (props) => {
+export const MyPosts = React.memo((props) => {
+console.log('rendered MY POSTS')
   return (
     <>
       <div>
@@ -55,4 +59,4 @@ export const MyPosts = (props) => {
       </div>
     </>
   );
-};
+});
