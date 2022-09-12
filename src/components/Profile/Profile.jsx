@@ -5,7 +5,7 @@ export const Profile = (props) => {
   console.log('rendered')
   return (
     <div className={s.content}>
-      <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+      <ProfileInfo isOwner={props.isOwner} profile={props.profile} status={props.status} updateStatus={props.updateStatus} savePhoto={props.savePhoto}/>
       <MyPostsContainer  />
     </div> 
   );

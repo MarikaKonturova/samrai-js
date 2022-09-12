@@ -2,30 +2,21 @@ import React from "react";
 import { Preloader } from "../common/Preloader/Preloader";
 import s from "./Users.module.css";
 import { Link } from "react-router-dom";
+import { Paginator } from './../common/Paginator/Paginator';
 
 export const Users = (props) => {
-  const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-  let pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-
+  console.log(props)
   if (props.isFetching) {
     return <Preloader />;
   }
+  
   return (
     <div className={s.pages}>
-      {pages.map((p) => (
-        <span
-          key={p}
-          onClick={(e) => {
-            props.onPageChanged(p);
-          }}
-          className={p === props.currentPage ? s.selectedPage : ""}
-        >
-          {p}
-        </span>
-      ))}
+      <Paginator totalItemsCount={props.totalUsersCount}
+                       pageSize={props.pageSize}
+                       currentPage={props.currentPage}
+                       onPageChanged={props.onPageChanged}
+/>
       {props.users.map((u) => (
         <div key={`${u.id}`} className={s.user_container}>
           <span>

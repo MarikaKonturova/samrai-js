@@ -1,13 +1,22 @@
 import React from "react";
 import { Preloader } from "./../../common/Preloader/Preloader";
 import {ProfileStatusWithHooks} from './ProfileStatus/ProfileStatusWithHooks'
-export const ProfileInfo = ({ profile,status, updateStatus }) => {
+import s from './ProfileInfo.module.css'
+import logo from '../../../assets/logo192.png'
+export const ProfileInfo = ({ profile,status,isOwner, savePhoto, updateStatus }) => {
+  const onMainPhotoUpdate = (e)=>{
+    if(e.target.files.length){
+      console.log(e.target.files[0])
+      savePhoto(e.target.files[0])
+    }
+  }
   if (!profile) {
     return <Preloader />;
   }
   return (
     <div>
-      <img src={profile.photos.large} alt="avatar" />
+      <img src={profile.photos.large || logo} alt="avatar" className={s.profile_image} />
+      {isOwner && <input type={'file'} onChange={onMainPhotoUpdate}/>}
       {/* <ProfileStatus status={status} updateStatus={updateStatus} /> */}
       <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
       <h2>{profile.fullName}</h2>
