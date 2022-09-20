@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { Paginator } from './../common/Paginator/Paginator';
 
 export const Users = (props) => {
-  console.log(props)
   if (props.isFetching) {
     return <Preloader />;
   }

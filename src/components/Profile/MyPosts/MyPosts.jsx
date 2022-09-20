@@ -42,7 +42,6 @@ const NewPost = (props) => {
 };
 
 export const MyPosts = React.memo((props) => {
-console.log('rendered MY POSTS')
   return (
     <>
       <div>

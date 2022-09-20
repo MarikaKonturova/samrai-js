@@ -8,6 +8,7 @@ import {
   getUserProfile,
   updateStatus,
   savePhoto,
+  saveProfile
 } from "../../redux/profile-reducer";
 import { compose } from "redux";
 class ProfileContainer extends React.Component {
@@ -52,6 +53,6 @@ export const WithUrlDataContainerComponent = (Component) => {
 };
 
 export default compose(
-  connect(mstp, { getUserProfile, updateStatus, getStatus, savePhoto }),
+  connect(mstp, { getUserProfile, updateStatus, getStatus, savePhoto, saveProfile }),
   WithUrlDataContainerComponent
 )(ProfileContainer);

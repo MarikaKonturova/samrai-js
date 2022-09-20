@@ -4,12 +4,12 @@ import { required } from "./../../utils/validators/validators";
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { login } from "../../redux/auth-reducer";
-import s from './Login.module.css'
-import { createField, Input } from './../common/FormControls/FormsControls';
+import s from "./Login.module.css";
+import { createField, Input } from "./../common/FormControls/FormsControls";
 const LoginForm = ({ handleSubmit, error }) => {
   return (
     <form onSubmit={handleSubmit}>
-      {createField("Email", "email", [required], Input)}
+      {createField( "Email", "email", [required], Input)}
       {createField("Password", "password", [required], Input, {
         type: "password",
       })}

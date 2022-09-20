@@ -61,7 +61,6 @@ export const followSuccess = (userId) => ({ type: FOLLOW, userId: userId });
 export const unfollowSuccess = (userId) => ({ type: UNFOLLOW, userId: userId });
 export const setUsers = (users) => ({ type: SET_USERS, users });
 export const setTotalCount = (totalUsersCount) => {
-  console.log( + totalUsersCount)
   return {
   type: SET_TOTAL_COUNT,
   totalUsersCount,
@@ -83,7 +82,6 @@ export const requestUsers = (currentPage, pageSize) => (dispatch) => {
   dispatch(setCurrentPage(currentPage));
   dispatch(setFetching(true));
   usersAPI.getUsers(currentPage, pageSize).then((data) => {
-    console.log("USER API  " + data)
     dispatch(setUsers(data.items));
     dispatch(setTotalCount(data.totalCount));
     dispatch(setFetching(false));
