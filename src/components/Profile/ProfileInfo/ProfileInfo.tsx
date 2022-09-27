@@ -1,13 +1,29 @@
-import { useState } from "react";
-import { Preloader } from "./../../common/Preloader/Preloader";
-import { ProfileStatusWithHooks } from "./ProfileStatus/ProfileStatusWithHooks";
+import { ChangeEvent, FC, useState } from "react";
+import { Preloader } from "../../common/Preloader/Preloader";
+import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
 import s from "./ProfileInfo.module.css";
 import logo from "../../../assets/logo192.png";
-import { Field, reduxForm } from "redux-form";
-import { ProfileDataReduxForm } from "./ProfileDataForm/ProfileDataForm";
-import {} from "./../../common/FormControls/FormsControls";
 
-export const ProfileInfo = ({
+import { ProfileDataReduxForm } from "./ProfileDataForm/ProfileDataForm";
+import {} from "../../common/FormControls/FormsControls";
+import { ProfileType } from "../../../types/types";
+type ProfileInfoType = {
+  profile: ProfileType | null;
+  status: string;
+  updateStatus: (status: string) => void;
+  isOwner: boolean;
+  savePhoto: (file: File) => void;
+  saveProfile: (
+    profile: Omit<ProfileType, "userId" | "photos">
+  ) => Promise<any>;
+};
+type FormDataType = {
+  [key: string]: string;
+};
+export type FormDataFullType = FormDataType & {
+  lookingForAJob: boolean;
+};
+export const ProfileInfo: FC<ProfileInfoType> = ({
   profile,
   status,
   isOwner,
@@ -16,7 +32,7 @@ export const ProfileInfo = ({
   saveProfile,
 }) => {
   const [editMode, setEditMode] = useState(false);
-  const onSubmit =  (formData) => {
+  const onSubmit = (formData: FormDataFullType) => {
     const {
       fullName,
       lookingForAJob,
@@ -29,34 +45,30 @@ export const ProfileInfo = ({
       mainLink,
       vk,
       lookingForAJobDescription,
-      aboutMe,
     } = formData;
 
-    const newProfile = {
-      fullName: fullName || profile.fullName,
+    const newProfile: Omit<ProfileType, "userId" | "photos"> = {
+      fullName: fullName || profile?.fullName || "",
       lookingForAJob: lookingForAJob || false,
       lookingForAJobDescription:
-        (lookingForAJobDescription || profile.lookingForAJob) ?? "",
-      aboutMe: aboutMe || profile.aboutMe,
+        (lookingForAJobDescription || profile?.lookingForAJobDescription) ?? "",
       contacts: {
-        github: github ?? profile.github ?? null,
-        instagram: instagram ?? profile.contacts.instagram ?? null,
-        facebook: facebook ?? profile.contacts.facebook ?? null,
-        twitter: twitter ?? profile.contacts.twitter ?? null,
-        vk: vk ?? profile.contacts.vk ?? null,
-        website: website ?? profile.contacts.website ?? null,
-        youtube: youtube ?? profile.contacts.website ?? null,
-        mainLink: mainLink ?? profile.contacts.mainLink ?? null,
+        github: github ?? profile?.contacts.github ?? null,
+        instagram: instagram ?? profile?.contacts.instagram ?? null,
+        facebook: facebook ?? profile?.contacts.facebook ?? null,
+        twitter: twitter ?? profile?.contacts.twitter ?? null,
+        vk: vk ?? profile?.contacts.vk ?? null,
+        website: website ?? profile?.contacts.website ?? null,
+        youtube: youtube ?? profile?.contacts.website ?? null,
+        mainLink: mainLink ?? profile?.contacts.mainLink ?? null,
       },
     };
-    saveProfile(newProfile).then(()=>{
-     setEditMode(false)
-    })
-   
-
+    saveProfile(newProfile).then(() => {
+      setEditMode(false);
+    });
   };
-  const onMainPhotoUpdate = (e) => {
-    if (e.target.files.length) {
+  const onMainPhotoUpdate = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length) {
       savePhoto(e.target.files[0]);
     }
   };
@@ -71,19 +83,12 @@ export const ProfileInfo = ({
         className={s.profile_image}
       />
       {isOwner && <input type={"file"} onChange={onMainPhotoUpdate} />}
-      {/* <ProfileStatus status={status} updateStatus={updateStatus} /> */}
-      <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
+      <ProfileStatus status={status} updateStatus={updateStatus} />
       {editMode ? (
-        <ProfileDataReduxForm
-          profile={profile}
-          setEditMode={setEditMode}
-          onSubmit={onSubmit}
-          initialValues={profile}
-        />
+        <ProfileDataReduxForm profile={profile} onSubmit={onSubmit} />
       ) : (
         <ProfileData
           profile={profile}
-          editMode={editMode}
           setEditMode={setEditMode}
           isOwner={isOwner}
         />
@@ -92,14 +97,17 @@ export const ProfileInfo = ({
   );
 };
 
-const ProfileData = ({ profile, setEditMode, isOwner }) => {
+type ProfileDataType = {
+  profile: ProfileType;
+  isOwner: boolean;
+  setEditMode: (value: boolean) => void;
+};
+const ProfileData = ({ profile, setEditMode, isOwner }: ProfileDataType) => {
   return (
     <>
-      {isOwner && <button onClick={() => setEditMode(true)}>edit</button>}
+      {isOwner && <button onClick={() => {console.log('ture') ;setEditMode(true)}}>edit</button>}
       <h2>{profile.fullName}</h2>
-      <p>
-        <b>About me: {profile.aboutMe}</b>
-      </p>
+
       <p>
         <b>Looking for a job: </b>
         {profile.lookingForAJob ? (

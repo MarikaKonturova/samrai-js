@@ -11,7 +11,7 @@ const state = {
 
 test('New post should be added', () => {
     // 1. test data
-    const action = addPostActionCreator('Hello')
+    const action = addPost('Hello')
     // 2. action
     const newState = profileReducer(state, action)
     // 3. expectation
@@ -22,7 +22,7 @@ test('New post should be added', () => {
 
 test('Post should be deleted', () => {
     // 1. test data
-    const action = deletePostActionCreator(postId1)
+    const action = deletePost(postId1)
     // 2. action
     const newState = profileReducer(state, action)
     // 3. expectation

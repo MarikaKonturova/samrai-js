@@ -1,7 +1,7 @@
 import { v1 } from "uuid";
 
 export const SEND_NEW_MESSAGE = "SEND-NEW-MESSAGE";
-let initialState = {
+let initialState: InitialStateType = {
   messages: [
     { id: v1(), message: "Good morning" },
     { id: v1(), message: "Durling" },
@@ -18,7 +18,10 @@ let initialState = {
   ],
 };
 
-export const dialogsReducer = (state = initialState, action) => {
+export const dialogsReducer = (
+  state: InitialStateType = initialState,
+  action: DialogsActionsType
+) => {
   switch (action.type) {
     case SEND_NEW_MESSAGE:
       let newMessage = { id: v1(), message: action.newMessageBody };
@@ -32,9 +35,17 @@ export const dialogsReducer = (state = initialState, action) => {
   }
 };
 
-export const sendNewMessageActionCreator = (newMessageBody) => {
+export const sendNewMessage = (newMessageBody: string) => {
   return {
     type: SEND_NEW_MESSAGE,
     newMessageBody,
-  };
+  } as const
 };
+
+type InitialStateType = {
+  messages: 
+    { id: string, message: string }[]
+  dialogs: { id: string, name: string }[]
+}
+type sendNewMessageType = ReturnType<typeof sendNewMessage>;
+export type DialogsActionsType = sendNewMessageType;

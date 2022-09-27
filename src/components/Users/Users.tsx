@@ -1,21 +1,27 @@
-import React from "react";
-import { Preloader } from "../common/Preloader/Preloader";
 import s from "./Users.module.css";
 import { Link } from "react-router-dom";
-import { Paginator } from './../common/Paginator/Paginator';
+import { Paginator } from "../common/Paginator/Paginator";
+import { UserType } from "../../types/types";
 
-export const Users = (props) => {
-  if (props.isFetching) {
-    return <Preloader />;
-  }
-  
+type UsersType = {
+  totalUsersCount: number;
+  pageSize: number;
+  currentPage: number;
+  inFollowingProgress: number[];
+  users: UserType[];
+  onPageChanged: (pageNumber: number) => void;
+  follow: (userId: number) => void;
+  unfollow: (userId: number) => void;
+};
+export const Users = (props: UsersType) => {
   return (
     <div className={s.pages}>
-      <Paginator totalItemsCount={props.totalUsersCount}
-                       pageSize={props.pageSize}
-                       currentPage={props.currentPage}
-                       onPageChanged={props.onPageChanged}
-/>
+      <Paginator
+        totalItemsCount={props.totalUsersCount}
+        pageSize={props.pageSize}
+        currentPage={props.currentPage}
+        onPageChanged={props.onPageChanged}
+      />
       {props.users.map((u) => (
         <div key={`${u.id}`} className={s.user_container}>
           <span>

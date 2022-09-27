@@ -1,13 +1,17 @@
-import React from "react";
+import React, { FC } from "react";
 import { MyPost } from "./MyPost/MyPost";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, InjectedFormProps } from "redux-form";
 import { Textarea } from "../../common/FormControls/FormsControls";
 import {
   required,
   maxLengthCreator,
 } from "../../../utils/validators/validators";
+import { MyPostsType } from "./MyPostsContainer";
 const maxLength30 = maxLengthCreator(30);
-const AddPostForm = (props) => {
+type AddPostFormType = {};
+const AddPostForm: FC<
+  InjectedFormProps<{ newPostText: string }, AddPostFormType> & AddPostFormType
+> = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
@@ -24,12 +28,12 @@ const AddPostForm = (props) => {
     </form>
   );
 };
-const AddNewPostFormRedux = reduxForm({ form: "ProfileAddNewPostFormRedux" })(
-  AddPostForm
-);
+const AddNewPostFormRedux = reduxForm<{ newPostText: string }>({
+  form: "ProfileAddNewPostFormRedux",
+})(AddPostForm);
 
-const NewPost = (props) => {
-  const addNewPost = (values) => {
+const NewPost = (props: { addPost: (value: string) => void }) => {
+  const addNewPost = (values: { newPostText: string }) => {
     props.addPost(values.newPostText);
     values.newPostText = "";
   };
@@ -41,11 +45,11 @@ const NewPost = (props) => {
   );
 };
 
-export const MyPosts = React.memo((props) => {
+export const MyPosts: FC<MyPostsType> = React.memo((props) => {
   return (
     <>
       <div>
-        <NewPost newPostText={props.newPostText} addPost={props.addPost} />
+        <NewPost addPost={props.addPost} />
       </div>
       <div>
         {[...props.posts].reverse().map((post) => (

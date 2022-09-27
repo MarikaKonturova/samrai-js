@@ -1,15 +1,13 @@
-import React from "react";
+import { FC } from "react";
 import s from "./Dialogs.module.css";
 import { Link } from "react-router-dom";
-import { Field, reduxForm } from "redux-form";
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { Navigate } from "react-router-dom";
-const DialogItem = ({ name, id }) => (
-  <Link to={id} className={s.dialogs_item}>
-    {name}
-  </Link>
-);
+import { DialogsType } from "./DialogsContainer";
 
-const AddMessageForm = (props) => {
+const AddMessageForm: FC<
+  InjectedFormProps<NewMessageFormValuesType, PropsType> 
+> = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
@@ -25,15 +23,25 @@ const AddMessageForm = (props) => {
     </form>
   );
 };
-//нужно обязательно оборачивать в reduxForm store.getState().from
-const AddMessageFormRedux = reduxForm({ form: "dialogAddMessageForm" })(
-  AddMessageForm
+const AddMessageFormRedux = reduxForm<NewMessageFormValuesType>({
+  form: "dialogAddMessageForm",
+})(AddMessageForm);
+
+
+
+
+const DialogItem = ({ name, id }: { name: string; id: string }) => (
+  <Link to={id} className={s.dialogs_item}>
+    {name}
+  </Link>
 );
 
-const Message = ({ message }) => <div className={s.message}>{message}</div>;
+const Message = ({ message }: { message: string }) => (
+  <div className={s.message}>{message}</div>
+);
 
-export const Dialogs = (props) => {
-  const addNewMessage = (values) => {
+export const Dialogs: FC<DialogsType> = (props) => {
+  const addNewMessage = (values: NewMessageFormValuesType) => {
     props.onSendMessageClick(values.newMessageBody);
   };
   if (!props.isAuth) {
@@ -55,3 +63,9 @@ export const Dialogs = (props) => {
     </div>
   );
 };
+
+//types
+type NewMessageFormValuesType = {
+  newMessageBody: string;
+};
+type PropsType = {};
