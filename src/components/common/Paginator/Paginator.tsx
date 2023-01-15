@@ -1,4 +1,6 @@
 import React, { FC, useState } from "react";
+import { useSelector } from "react-redux";
+import { AppRootStateType } from "../../../redux/redux-store";
 import styles from "./Paginator.module.css";
 type PaginatorType = {
   totalItemsCount: number;
@@ -22,13 +24,24 @@ export const Paginator: FC<PaginatorType> = ({
   }
 
   let portionCount = Math.ceil(pagesCount / portionSize);
-  let [portionNumber, setPortionNumber] = useState(1);
+
+  let [portionNumber, setPortionNumber] = useState(
+    +JSON.parse(localStorage.getItem("portionNumber") || "1")
+  );
   let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
   let rightPortionPageNumber = portionSize * portionNumber;
   return (
     <div>
       {portionNumber > 1 && (
-        <button onClick={() => setPortionNumber(portionNumber - 1)}>
+        <button
+          onClick={() => {
+            localStorage.setItem(
+              "portionNumber",
+              JSON.stringify(portionNumber - 1)
+            );
+            setPortionNumber(portionNumber - 1);
+          }}
+        >
           PREV
         </button>
       )}
@@ -46,7 +59,16 @@ export const Paginator: FC<PaginatorType> = ({
           </span>
         ))}
       {portionCount > portionNumber && (
-        <button onClick={() => setPortionNumber(portionNumber + 1)}>
+        <button
+          onClick={() => {
+            localStorage.setItem(
+              "portionNumber",
+              JSON.stringify(portionNumber + 1)
+            );
+
+            setPortionNumber(portionNumber + 1);
+          }}
+        >
           NEXT
         </button>
       )}

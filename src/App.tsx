@@ -11,6 +11,7 @@ import { Preloader } from "./components/common/Preloader/Preloader";
 import { DialogsContainer } from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import { AppDispatch, AppRootStateType } from "./redux/redux-store";
+import { Chat } from "./pages/Chat";
 type AppType = {
   initializeApp: () => void;
   initialized: boolean;
@@ -40,6 +41,7 @@ class App extends React.Component<AppType> {
             <Route path="/dialogs" element={<DialogsContainer />} />
             <Route path="/users" element={<UsersContainer />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/chat" element={<Chat />} />
           </Routes>
         </div>
         {/* </React.Suspense> */}
@@ -48,10 +50,10 @@ class App extends React.Component<AppType> {
   }
 }
 
-const mapStateToProps = (state : AppRootStateType) => ({
+const mapStateToProps = (state: AppRootStateType) => ({
   initialized: state.app.initialized,
 });
-const mapDispatchToProps = (dispatch :AppDispatch ) => ({
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
   initializeApp: () => {
     dispatch(initializeApp());
   },
