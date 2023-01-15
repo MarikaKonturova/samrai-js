@@ -2,8 +2,8 @@ import { authAPI, securityAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 import { AppThunkType } from "./redux-store";
 
-const SET_USER_DATA = "SET_USER_DATA";
-const GET_CAPTCHA_URL = "GET_CAPTCHA_URL";
+const SET_USER_DATA = "SET-USER-DATA";
+const GET_CAPTCHA_URL = "GET-CAPTCHA-URL";
 
 let initialState: InitialStateType = {
   userId: null,

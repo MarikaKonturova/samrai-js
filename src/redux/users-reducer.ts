@@ -4,11 +4,11 @@ import { AppThunkType } from "./redux-store";
 
 export const FOLLOW = "FOLLOW";
 export const UNFOLLOW = "UNFOLLOW";
-export const SET_USERS = "SET_USERS";
-export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-export const SET_TOTAL_COUNT = "SET_TOTAL_COUNT";
-export const SET_FETCHING = "SET_FETCHING";
-export const SET_PROGRESS_FETCHING = "SET_PROGRESS_FETCHING";
+export const SET_USERS = "SET-USERS";
+export const SET_CURRENT_PAGE = "SET-CURRENT_PAGE";
+export const SET_TOTAL_COUNT = "SET-TOTAL-COUNT";
+export const SET_FETCHING = "SET-FETCHING";
+export const SET_PROGRESS_FETCHING = "SET-PROGRESS-FETCHING";
 let initialState = {
   users: [],
   pageSize: 10,

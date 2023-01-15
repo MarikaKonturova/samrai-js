@@ -4,10 +4,10 @@ import { stopSubmit } from "redux-form";
 import { AppThunkType } from "./redux-store";
 import { PhotosType, PostType, ProfileType } from "../types/types";
 export const ADD_POST = "ADD-POST";
-export const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_STATUS = "SET_STATUS";
-const SET_PHOTO = "SET_PHOTO";
-const DELETE_POST = "DELETE_POST";
+export const SET_USER_PROFILE = "SET-USER-PROFILE";
+const SET_STATUS = "SET-STATUS";
+const SET_PHOTO = "SET-PHOTO";
+const DELETE_POST = "DELETE-POST";
 
 let initialState: InitialStateType = {
   posts: [
