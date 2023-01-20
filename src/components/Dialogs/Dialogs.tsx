@@ -44,9 +44,7 @@ export const Dialogs: FC<DialogsType> = (props) => {
   const addNewMessage = (values: NewMessageFormValuesType) => {
     props.onSendMessageClick(values.newMessageBody);
   };
-  if (!props.isAuth) {
-    return <Navigate to={"/login"} />;
-  }
+ 
   return (
     <div className={s.dialogs}>
       <div className={s.dialogs_items}>

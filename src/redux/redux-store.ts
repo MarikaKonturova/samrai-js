@@ -17,12 +17,11 @@ const rootReducer = combineReducers({
   app: appReducer,
   form: formReducer,
 });
-//@ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 
 const store = legacy_createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunkMiddleware))
+  applyMiddleware(thunkMiddleware)
 );
 
 //@ts-ignore

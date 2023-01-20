@@ -31,5 +31,6 @@ type mapDispatchToPropsType = {
 export type DialogsType = mapDispatchToPropsType & mapStateToPropsType;
 
 
-export const DialogsContainer = compose<React.ComponentType>(connect(mptp, mdtp), withAuthRedirect)(Dialogs)
+const  DialogsContainer = compose<React.ComponentType>(connect(mptp, mdtp), withAuthRedirect)(Dialogs)
 
+export default DialogsContainer

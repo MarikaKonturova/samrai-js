@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState, UIEvent, memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, AppRootStateType } from "../redux/redux-store";
+import { useSelector } from "react-redux";
+import { AppRootStateType } from "../redux/redux-store";
 import { MessageType, StatusType } from "../types/types";
 import { useAppDispatch } from "../utils/hooks/redux-hooks";
 import {
@@ -66,7 +66,10 @@ const Messages: FC<MessagesType> = () => {
       {messages.map((m: MessageType, i) => (
         <Message message={m} key={`${m.userName}_${m.message}_${i}`} />
       ))}
-      <div ref={messagesAnchorRef}></div>
+      <div
+        style={{ float: "left", clear: "both" }}
+        ref={messagesAnchorRef}
+      ></div>
     </div>
   );
 };
