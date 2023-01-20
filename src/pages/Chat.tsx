@@ -10,6 +10,7 @@ import {
 } from "./../redux/chat-reducer";
 
 type ChatProps = {};
+
 export const Chat: FC<ChatProps> = () => {
   const status = useSelector<AppRootStateType, StatusType>(
     (state) => state.chat.status
