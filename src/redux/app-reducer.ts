@@ -22,8 +22,9 @@ export const appReducer = (state = initialState, action: AppActionsType) => {
 export const initializedSuccess = () => ({ type: INITIALIZED_SUCCESS } as const);
 
 export const initializeApp = (): AppThunkType => async (dispatch) => {
-  dispatch(getAuthUserData());
-  dispatch(initializedSuccess());
+  await dispatch(getAuthUserData())
+    dispatch(initializedSuccess());
+
 };
 
 //types

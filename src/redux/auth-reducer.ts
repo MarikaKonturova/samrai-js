@@ -44,13 +44,13 @@ export const getCaptchaUrlSuccess = (captchaUrl: string) => ({
   payload: { captchaUrl },
 }as const);
 
-export const getAuthUserData = (): AppThunkType => (dispatch) =>
-  authAPI.me().then((response) => {
+export const getAuthUserData = (): AppThunkType => (dispatch) =>{
+  return authAPI.me().then((response) => {
     if (response.data.resultCode === 0) {
       let { id, email, login } = response.data.data;
       dispatch(setAuthUserData(id, email, login, true));
     }
-  });
+  })};
 export const getCaptchaUrl = (): AppThunkType => async (dispatch) => {
   const response = await securityAPI.getCaptchaUrl();
   const captchaUrl = response.data.url;
@@ -83,6 +83,8 @@ export const login =
       dispatch(stopSubmit("login", { _error: message }));
     }
   };
+
+  
 
 //types
 type InitialStateType = {
